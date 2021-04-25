@@ -250,7 +250,7 @@ class Conditionize {
         if (arr instanceof Array) {
             if (arr.length === 3) {
                 arr[0] = self.compare(arr[0]);
-                if (arr[2] instanceof Array) {
+                if (arr[2] instanceof Array || self.isValidSelector(arr[2])) {
                     arr[2] = self.compare(arr[2]);
                 }
 
