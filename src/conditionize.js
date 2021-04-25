@@ -145,9 +145,14 @@ class Conditionize {
         self.runCheck(self.$container.find(self.options.selector));
 
         // call onInit event
-        if (self.options.onInit) {
-            self.options.onInit.call(self);
-        }
+        self.runEvent('onInit');
+    }
+
+    runEvent(ev, ...args) {
+        const self = this;
+
+        self.$container.trigger(`conditionize.${ev}`, ...args);
+        if (self.options[ev]) self.options[ev].call(self, ...args);
     }
 
     runCheck($items) {
@@ -164,9 +169,7 @@ class Conditionize {
                 $this[conditionResult ? 'show' : 'hide']();
             }
 
-            if (self.options.onCheck) {
-                self.options.onCheck($this, conditionResult);
-            }
+            self.runEvent('onCheck');
         });
     }
 
@@ -282,9 +285,7 @@ class Conditionize {
         const self = this;
 
         // call onDestroy event
-        if (self.options.onDestroy) {
-            self.options.onDestroy.call(self);
-        }
+        self.runEvent('onDestroy');
 
         // disable event.
         self.$container.off('change.conditionize');
