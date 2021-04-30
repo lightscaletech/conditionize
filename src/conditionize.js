@@ -138,8 +138,8 @@ class Conditionize {
         }
 
         // event listener
-        self.$container.on('change.conditionize', 'input, select, textarea', () => {
-            self.runCheck(self.$container.find(self.options.selector));
+        self.$container.on('change.conditionize', 'input, select, textarea', (ev) => {
+            self.runCheck(self.$container.find(self.options.selector), ev.currentTarget);
         });
 
         self.runCheck(self.$container.find(self.options.selector));
@@ -155,7 +155,7 @@ class Conditionize {
         if (self.options[ev]) self.options[ev].call(self, ...args);
     }
 
-    runCheck($items) {
+    runCheck($items, target) {
         const self = this;
 
         $items.each(function () {
@@ -169,7 +169,7 @@ class Conditionize {
                 $this[conditionResult ? 'show' : 'hide']();
             }
 
-            self.runEvent('onCheck');
+            self.runEvent('onCheck', target);
         });
     }
 

@@ -303,8 +303,8 @@ var Conditionize = /*#__PURE__*/function () {
       } // event listener
 
 
-      self.$container.on('change.conditionize', 'input, select, textarea', function () {
-        self.runCheck(self.$container.find(self.options.selector));
+      self.$container.on('change.conditionize', 'input, select, textarea', function (ev) {
+        self.runCheck(self.$container.find(self.options.selector), ev.currentTarget);
       });
       self.runCheck(self.$container.find(self.options.selector)); // call onInit event
 
@@ -327,7 +327,7 @@ var Conditionize = /*#__PURE__*/function () {
     }
   }, {
     key: "runCheck",
-    value: function runCheck($items) {
+    value: function runCheck($items, target) {
       var self = this;
       $items.each(function () {
         var $this = $(this);
@@ -340,7 +340,7 @@ var Conditionize = /*#__PURE__*/function () {
           $this[conditionResult ? 'show' : 'hide']();
         }
 
-        self.runEvent('onCheck');
+        self.runEvent('onCheck', target);
       });
     } // parse condition
 
