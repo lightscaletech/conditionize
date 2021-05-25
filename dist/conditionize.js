@@ -423,7 +423,7 @@ var Conditionize = /*#__PURE__*/function () {
         if (arr.length === 3) {
           arr[0] = self.compare(arr[0]);
 
-          if (arr[2] instanceof Array || self.isValidSelector(arr[2])) {
+          if (arr[2] instanceof Array || ['||', '&&'].indexOf(arr[1]) > -1 && self.isValidSelector(arr[2])) {
             arr[2] = self.compare(arr[2]);
           }
 
